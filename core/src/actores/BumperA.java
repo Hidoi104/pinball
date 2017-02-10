@@ -4,7 +4,7 @@ import interfaces.IBumper;
 
 public class BumperA implements IBumper {
 	public int puntuacion;
-	public int choques=0;
+	//public int choques=0;
 
 	public BumperA(int puntuacion) {
 		this.puntuacion=puntuacion;
@@ -13,11 +13,7 @@ public class BumperA implements IBumper {
 	@Override
 	public int choque(Ball ball) {
 		// TODO Auto-generated method stub
-		return puntuacion();
+		return this.puntuacion;
 	}
-
-	private int puntuacion(){
-		
-		return 0;
-	}
+	
 }
