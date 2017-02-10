@@ -12,8 +12,13 @@ public class BumperA implements IBumper {
 	
 	@Override
 	public int choque(Ball ball) {
-		// TODO Auto-generated method stub
+		// TODO: hacer lo de la direccion y la velocidad
 		return this.puntuacion;
+	}
+
+	@Override
+	public void subirNivel() {
+		puntuacion=puntuacion*2;
 	}
 	
 }
