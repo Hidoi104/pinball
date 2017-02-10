@@ -15,11 +15,5 @@ public class BumperA implements IBumper {
 		// TODO Auto-generated method stub
 		return this.puntuacion;
 	}
-
-	@Override
-	public void subirNivel() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }
