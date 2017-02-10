@@ -12,4 +12,9 @@ public interface IBumper {
 	 * @return	devuelve la puntuación que tiene el Bumper
 	 */
 	public int choque(Ball ball);
+	
+	/**
+	 * Este método lo que hace es aumentar la puntuación y cambia el color
+	 */
+	public void subirNivel();
 }
