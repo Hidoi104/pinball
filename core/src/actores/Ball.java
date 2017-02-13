@@ -3,6 +3,7 @@ package actores;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -12,29 +13,22 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import comunes.Utiles;
 
-public class Ball {
-	private static final int MORTAL_BOUND_Y = 1500;
+public class Ball extends Actor {
 	Sprite sprite;
 	TextureAtlas textureMapa;
 	TextureRegion textura;
 	public Body body;
-	boolean aleatoria = false;
 	boolean dead = false;
 
-	public Ball(World world) {
+	public Ball(World world,int posX, int posY) {
 		textureMapa = new TextureAtlas(Gdx.files.internal("bola.atlas"));
 		textura = new TextureRegion(textureMapa.findRegion("bola" + getRandomColor()));
 		sprite = new Sprite(textura);
-		if (aleatoria)
-			sprite.setPosition(-Utiles.getEnteroIntervalo(Gdx.graphics.getWidth() / 2),
-					Utiles.getEnteroIntervalo(Gdx.graphics.getHeight() / 2));
-		else {
-//			sprite.setPosition(-sprite.getWidth(), -sprite.getHeight());
-			sprite.setPosition(0, Gdx.graphics.getHeight()-sprite.getHeight());
-		}
+		sprite.setPosition(posX, posY);
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
 		bodyDef.position.set((sprite.getX() + sprite.getWidth() / 2) / Utiles.PIXELS_TO_METERS,
@@ -49,25 +43,15 @@ public class Ball {
 		shape.dispose();
 		body.setFixedRotation(false);
 	}
-
-	public boolean isAleatoria() {
-		return aleatoria;
-	}
-
-	public void setAleatoria(boolean aleatoria) {
-		this.aleatoria = aleatoria;
-	}
-
-	public boolean isDead() {
-		return dead;
-	}
-
-	public void update() {
+	
+	@Override
+	public void act(float delta) {
+		super.act(delta);
 		sprite.setPosition((body.getPosition().x * Utiles.PIXELS_TO_METERS) - sprite.getWidth() / 2,
 				(body.getPosition().y * Utiles.PIXELS_TO_METERS) - sprite.getHeight() / 2);
-		if (sprite.getY() < -MORTAL_BOUND_Y)
-			dead = true;
 	}
+
+
 
 	
 	public static String getRandomColor() {
@@ -88,7 +72,8 @@ public class Ball {
 		}
 	}
 
-	public void draw(SpriteBatch batch) {
+	@Override
+	public void draw(Batch batch, float parentAlpha) {
 		sprite.draw(batch);
 	}
 }
